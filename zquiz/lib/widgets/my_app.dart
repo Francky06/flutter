@@ -6,9 +6,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Zquiz Le Grand',
       theme: ThemeData(
-        primarySwatch: Colors.cyan,
+        primarySwatch: Colors.yellow,
       ),
       home: MyHomePage(title: 'Zquiz'),
     );

@@ -6,6 +6,7 @@ class TextUtils extends Text {
       super(
         text,
         textScaleFactor: textScaleFactor,
-        style: new TextStyle(color: color)
+        style: new TextStyle(color: color),
+        textAlign: TextAlign.center,
       );
 }
