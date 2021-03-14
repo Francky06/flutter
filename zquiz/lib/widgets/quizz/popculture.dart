@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zquiz/widgets/text_utils.dart';
 import 'package:zquiz/models/question.dart';
+import 'package:zquiz/models/listq.dart';
 import 'dart:async';
 
 class Popculture extends StatefulWidget {
@@ -10,32 +11,21 @@ class Popculture extends StatefulWidget {
 }
 
 class _PopcultureState extends State<Popculture> {
-  
   Question question;
   int index = 0;
   int score = 0;
-
+  List<Question> listQuestions = Listpop().listQuestions;
 
   @override
   void initState() {
+    listQuestions.shuffle();
     question = listQuestions[index];
     super.initState();
   }
 
-  List<Question> listQuestions = [
-    new Question("De quand date la toute première BD jamais publiée ?",
-  (["1848", "1896", "1902", "1923"]), "1", "test", "cook.png"),
-  ];
-
-
-  
   @override
   Widget build(BuildContext context) {
-
     double size = MediaQuery.of(context).size.width * 0.3;
-
-
-
 
     return Scaffold(
       backgroundColor: Colors.teal,
@@ -67,8 +57,6 @@ class _PopcultureState extends State<Popculture> {
                 bouton1('1'),
                 bouton2('2'),
                 bouton3('3'),
-
-
               ],
             ),
           ],
@@ -76,8 +64,6 @@ class _PopcultureState extends State<Popculture> {
       ),
     );
   }
-
-
 
   ElevatedButton bouton(String b) {
     return ElevatedButton(
@@ -122,15 +108,12 @@ class _PopcultureState extends State<Popculture> {
     );
   }
 
-
-
   Future<Null> dialog(String b) async {
       bool c = (b == question.reponseBonne);
         String good = "assets/c.png";
-        String faux = "assets/burglar.png";
+        String faux = "assets/sick.png";
         if(c) {
           score++;
-          print('ok');
         }
           return showDialog(
               context: context,
@@ -160,10 +143,39 @@ class _PopcultureState extends State<Popculture> {
                 );
               }
           );
+  }
 
+  Future<Null> alerte() {
+    return showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext buildContext) {
+          return AlertDialog(
+            title: TextUtils('Fin du Zquiz', color: Colors.black, textScaleFactor: 1.2),
+            contentPadding: EdgeInsets.all(10),
+            content: TextUtils("Votre score est de : $score / ${index + 1}", color: Colors.black),
+            actions: [
+              TextButton(
+                  onPressed: ((){
+                    Navigator.pop(buildContext);
+                    Navigator.pop(context);
+                  }),
+                  child: TextUtils("Terminer", textScaleFactor: 1.2),
+              )
+            ],
+          );
+    }
+    );
   }
 
   void getNQ() {
-    print('testhh');
+    if(index < 9) {
+      index++;
+      setState(() {
+        question = listQuestions[index];
+      });
+    } else {
+        alerte();
+    }
   }
 }

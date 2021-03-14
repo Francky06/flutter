@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:zquiz/widgets/citations.dart';
-import 'package:zquiz/widgets/divers.dart';
-import 'package:zquiz/widgets/geography.dart';
-import 'package:zquiz/widgets/popculture.dart';
 import 'package:zquiz/widgets/text_utils.dart';
+import 'package:zquiz/widgets/quizz/popculture.dart';
+import 'package:zquiz/widgets/quizz/citations.dart';
+import 'package:zquiz/widgets/quizz/geography.dart';
+import 'package:zquiz/widgets/quizz/divers.dart';
+
 
 class Themes extends StatefulWidget {
   @override

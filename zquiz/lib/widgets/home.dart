@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zquiz/widgets/text_utils.dart';
-import 'package:zquiz/widgets/themes.dart';
+import 'package:zquiz/widgets/quizz/themes.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -9,7 +9,6 @@ class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
-
 
 class _MyHomePageState extends State<MyHomePage> {
   @override

@@ -2,7 +2,7 @@
 import 'dart:math';
 
 class Question {
-String question;
+  String question;
   List<String> response;
   String reponseBonne;
   String explication;
