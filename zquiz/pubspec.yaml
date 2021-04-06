@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
+  liquid_progress_indicator_ns: ^1.0.0
   flutter_test:
     sdk: flutter
 

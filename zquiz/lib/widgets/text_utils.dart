@@ -10,3 +10,18 @@ class TextUtils extends Text {
         textAlign: TextAlign.center,
       );
 }
+
+class TextUtils2 extends Text {
+
+  TextUtils2(String text, {color: Colors.black, textScaleFactor: 1.0}) :
+        super(
+        text,
+        textScaleFactor: textScaleFactor,
+        style: new TextStyle(
+          color: color,
+          backgroundColor: Colors.yellow,
+          fontSize: 15,
+        ),
+        textAlign: TextAlign.center,
+      );
+}

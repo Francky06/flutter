@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:zquiz/widgets/text_utils.dart';
 import 'package:zquiz/models/question.dart';
 import 'package:zquiz/models/listq.dart';
+import 'package:liquid_progress_indicator_ns/liquid_progress_indicator.dart';
 import 'dart:async';
 
 class Popculture extends StatefulWidget {
@@ -14,14 +15,26 @@ class _PopcultureState extends State<Popculture> {
   Question question;
   int index = 0;
   int score = 0;
+  double percent = 20;
+  Timer timer;
   List<Question> listQuestions = Listpop().listQuestions;
 
   @override
   void initState() {
     listQuestions.shuffle();
     question = listQuestions[index];
+    timer = Timer.periodic(Duration(seconds: 1), (_) {
+      setState(() {
+        percent -= 1;
+        if (percent <= 0) {
+          getNQ();
+        }
+      });
+    });
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,41 +49,78 @@ class _PopcultureState extends State<Popculture> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            TextUtils('Question #${index + 1}'),
-            TextUtils('Score : $score / $index'),
-            TextUtils('${question.response}'),
-            TextUtils('${question.reponseBonne}'),
             Card(
-              elevation: 8,
               child: Container(
-                width: size,
-                height: size,
-                  child: Image.asset(question.imagePath, fit: BoxFit.cover),
+                height: MediaQuery.of(context).size.height * 0.1,
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Center(
+                  child: (TextUtils(question.question, textScaleFactor: 1.2)),
+                ),
               ),
             ),
-            TextUtils(question.question, textScaleFactor: 1.2),
+            Card(
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.05,
+                width: MediaQuery.of(context).size.width * 0.3,
+                child: Center(
+                  child: (TextUtils('Score : $score / $index')),
+                ),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
               children: [
-                bouton('0'),
-                bouton1('1'),
-                bouton2('2'),
-                bouton3('3'),
+                Card(
+                  elevation: 8,
+                  child: Container(
+                    width: size,
+                    height: size,
+                      child: Image.asset(question.imagePath, fit: BoxFit.cover),
+                  ),
+                ),
+                Container(
+                    width: size,
+                    height: size,
+                    color: Colors.teal,
+                    child: LiquidCircularProgressIndicator(
+                      value: percent / 20,
+                      // Defaults to 0.5.
+                      valueColor: AlwaysStoppedAnimation(Colors.pink),
+                      backgroundColor: Colors.white,
+                      borderColor: Colors.red,
+                      borderWidth: 4.0,
+                      direction: Axis.vertical,
+                      center: Text(
+                        percent.toString() + " secondes",
+                        style: TextStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black),
+                      ),
+                    ),
+                ),
               ],
             ),
+              bouton('0'),
+              bouton1('1'),
+              bouton2('2'),
+              bouton3('3'),
           ],
         ),
       ),
     );
   }
 
+
+
+
   ElevatedButton bouton(String b) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-          elevation: 2,
+          elevation: 6,
         ),
         onPressed: (() => dialog(b)),
+
       child: TextUtils('${question.response[0]}'),
     );
   }
@@ -78,7 +128,7 @@ class _PopcultureState extends State<Popculture> {
   ElevatedButton bouton1(String b) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        elevation: 2,
+        elevation: 6,
       ),
       onPressed: (() => dialog(b)),
       child: TextUtils('${question.response[1]}'),
@@ -89,7 +139,7 @@ class _PopcultureState extends State<Popculture> {
   ElevatedButton bouton2(String b) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        elevation: 2,
+        elevation: 6,
       ),
       onPressed: (() => dialog(b)),
       child: TextUtils('${question.response[2]}'),
@@ -100,12 +150,13 @@ class _PopcultureState extends State<Popculture> {
   ElevatedButton bouton3(String b) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        elevation: 2,
+        elevation: 6,
       ),
       onPressed: (() => dialog(b)),
       child: TextUtils('${question.response[3]}'),
 
     );
+
   }
 
   Future<Null> dialog(String b) async {
@@ -129,14 +180,14 @@ class _PopcultureState extends State<Popculture> {
                     textScaleFactor: 1.4,
                     color: c ? Colors.green : Colors.red,
                   ),
-                  contentPadding: EdgeInsets.all(50),
+                  contentPadding: EdgeInsets.only(left: 50, top: 20, right: 50, bottom: 20),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   children: [
                     Container(
-                      width: 150,
-                      height: 150,
+                      width: 100,
+                      height: 120,
                       child: Image.asset(c ? good : faux, fit: BoxFit.cover),
                 ),
                   ],
@@ -146,6 +197,7 @@ class _PopcultureState extends State<Popculture> {
   }
 
   Future<Null> alerte() {
+    timer.cancel();
     return showDialog(
         barrierDismissible: false,
         context: context,
@@ -159,6 +211,7 @@ class _PopcultureState extends State<Popculture> {
                   onPressed: ((){
                     Navigator.pop(buildContext);
                     Navigator.pop(context);
+                    timer.cancel();
                   }),
                   child: TextUtils("Terminer", textScaleFactor: 1.2),
               )
@@ -171,6 +224,7 @@ class _PopcultureState extends State<Popculture> {
   void getNQ() {
     if(index < 9) {
       index++;
+      percent = 20;
       setState(() {
         question = listQuestions[index];
       });
