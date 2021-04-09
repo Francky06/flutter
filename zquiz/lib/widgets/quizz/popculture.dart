@@ -19,13 +19,15 @@ class _PopcultureState extends State<Popculture> {
   Timer timer;
   List<Question> listQuestions = Listpop().listQuestions;
 
+
+
   @override
   void initState() {
     listQuestions.shuffle();
     question = listQuestions[index];
-    timer = Timer.periodic(Duration(seconds: 1), (_) {
+    timer = Timer.periodic(Duration(milliseconds: 100), (_) {
       setState(() {
-        percent -= 1;
+        percent -= 0.1;
         if (percent <= 0) {
           getNQ();
         }
@@ -34,6 +36,12 @@ class _PopcultureState extends State<Popculture> {
     super.initState();
   }
 
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
 
 
   @override
@@ -75,7 +83,7 @@ class _PopcultureState extends State<Popculture> {
                   child: Container(
                     width: size,
                     height: size,
-                      child: Image.asset(question.imagePath, fit: BoxFit.cover),
+                      child: Image.asset('assets/'+question.imagePath, fit: BoxFit.cover),
                   ),
                 ),
                 Container(
@@ -91,7 +99,7 @@ class _PopcultureState extends State<Popculture> {
                       borderWidth: 4.0,
                       direction: Axis.vertical,
                       center: Text(
-                        percent.toString() + " secondes",
+                        percent.round().toString() + " secondes",
                         style: TextStyle(
                             fontSize: 12.0,
                             fontWeight: FontWeight.w600,
@@ -110,8 +118,6 @@ class _PopcultureState extends State<Popculture> {
       ),
     );
   }
-
-
 
 
   ElevatedButton bouton(String b) {
@@ -197,7 +203,6 @@ class _PopcultureState extends State<Popculture> {
   }
 
   Future<Null> alerte() {
-    timer.cancel();
     return showDialog(
         barrierDismissible: false,
         context: context,
@@ -211,7 +216,6 @@ class _PopcultureState extends State<Popculture> {
                   onPressed: ((){
                     Navigator.pop(buildContext);
                     Navigator.pop(context);
-                    timer.cancel();
                   }),
                   child: TextUtils("Terminer", textScaleFactor: 1.2),
               )
@@ -230,6 +234,7 @@ class _PopcultureState extends State<Popculture> {
       });
     } else {
         alerte();
+        timer.cancel();
     }
   }
 }

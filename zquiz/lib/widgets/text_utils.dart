@@ -19,7 +19,7 @@ class TextUtils2 extends Text {
         textScaleFactor: textScaleFactor,
         style: new TextStyle(
           color: color,
-          backgroundColor: Colors.yellow,
+          backgroundColor: Colors.green,
           fontSize: 15,
         ),
         textAlign: TextAlign.center,

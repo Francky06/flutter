@@ -26,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: new Container(
                 height: MediaQuery.of(context).size.height * 0.4,
                 width: MediaQuery.of(context).size.height * 0.4,
-                child: Image.asset("assets/dog.png", fit: BoxFit.cover),
+                child: Image.asset("assets/dog.png", fit: BoxFit.cover)
               ),
             ),
             Text("New Zquiz",
@@ -34,16 +34,39 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontSize: 25,
               ),
             ),
-            ElevatedButton(
+            TextButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
                     return new Themes();
                   }));
                 },
-                style: ElevatedButton.styleFrom(
-                  elevation: 5,
+                style: TextButton.styleFrom(
+                  shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(100),
+                  ),
+                  backgroundColor: Colors.green,
                 ),
-                child: TextUtils("Demarrer"),
+
+                child: Container(
+                  width: 200,
+                  height: 200,
+                  child: Icon(Icons.android, size: 80, color: Colors.black),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.all(Radius.circular(100)),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey[500],
+                            offset: Offset(4.0, 4.0),
+                            blurRadius: 15.0,
+                            spreadRadius: 1.0),
+                        BoxShadow(
+                            color: Colors.white,
+                            offset: Offset(-4.0, -4.0),
+                            blurRadius: 15.0,
+                            spreadRadius: 1.0),
+                      ]),
+                ),
             ),
           ],
         ),
