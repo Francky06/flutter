@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zquiz/widgets/tetris/tetris.dart';
 import 'package:zquiz/widgets/text_utils.dart';
 import 'package:zquiz/widgets/quizz/themes.dart';
 
@@ -23,17 +24,26 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             new Card(
               elevation: 5.0,
+              shape: CircleBorder(),
               child: new Container(
-                height: MediaQuery.of(context).size.height * 0.4,
-                width: MediaQuery.of(context).size.height * 0.4,
-                child: Image.asset("assets/dog.png", fit: BoxFit.cover)
+                height: MediaQuery.of(context).size.height * 0.3,
+                width: MediaQuery.of(context).size.height * 0.3,
+                decoration: new BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: new DecorationImage(
+                    image: new AssetImage('assets/dog.png'),
+                  ),
+                ),
+             //   child: Image.asset("assets/dog.png", fit: BoxFit.cover),
               ),
             ),
+
             Text("New Zquiz",
               style: TextStyle(
-                fontSize: 25,
+                fontSize: 35,
               ),
             ),
+
             TextButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
@@ -46,17 +56,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   backgroundColor: Colors.green,
                 ),
-
                 child: Container(
-                  width: 200,
-                  height: 200,
-                  child: Icon(Icons.android, size: 80, color: Colors.black),
+                  width: 100,
+                  height: 100,
+                  child: Center(
+                    child:Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextUtils('Zquiz'),
+                        Icon(Icons.all_inclusive, size: 40, color: Colors.black),
+                      ],
+                    ),
+                    ),
                   decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.all(Radius.circular(100)),
+                      //color: Colors.grey[300],
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
                       boxShadow: [
                         BoxShadow(
-                            color: Colors.grey[500],
+                            color: Colors.white10,
                             offset: Offset(4.0, 4.0),
                             blurRadius: 15.0,
                             spreadRadius: 1.0),
@@ -67,6 +84,48 @@ class _MyHomePageState extends State<MyHomePage> {
                             spreadRadius: 1.0),
                       ]),
                 ),
+            ),
+
+            TextButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                  return new Tetris();
+                }));
+              },
+              style: TextButton.styleFrom(
+                shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(100),
+                ),
+                backgroundColor: Colors.deepOrange,
+              ),
+              child: Container(
+                width: 100,
+                height: 100,
+                child: Center(
+                  child:Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextUtils('Tetris'),
+                      Icon(Icons.analytics_outlined, size: 40, color: Colors.black),
+                    ],
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  //color: Colors.grey[300],
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.white10,
+                          offset: Offset(4.0, 4.0),
+                          blurRadius: 15.0,
+                          spreadRadius: 1.0),
+                      BoxShadow(
+                          color: Colors.white,
+                          offset: Offset(-4.0, -4.0),
+                          blurRadius: 15.0,
+                          spreadRadius: 1.0),
+                    ]),
+              ),
             ),
           ],
         ),
