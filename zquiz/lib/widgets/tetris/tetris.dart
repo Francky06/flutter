@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:zquiz/widgets/text_utils.dart';
 import 'package:zquiz/widgets/tetris/game.dart';
 import 'package:zquiz/widgets/tetris/next_block.dart';
-
+import '../../main.dart';
+import 'package:provider/provider.dart';
 
 class Tetris extends StatefulWidget {
   @override
@@ -49,21 +50,18 @@ class _TetrisState extends State<Tetris> {
                           children: [
                             NextBlock(),
                             SizedBox(height: 30),
-                            ElevatedButton(onPressed: () {
-                              setState(() {
-                                _keyGame.currentState != null
-                                    && _keyGame.currentState.isPlaying
+                            ElevatedButton(
+                                onPressed: () {
+                                Provider.of<Data>(context, listen: false).isPlaying
                                     ? _keyGame.currentState.endGame()
                                     : _keyGame.currentState.startGame();
-                              });
-                            },
+                              },
                                 style: ElevatedButton.styleFrom(
                                   elevation: 5,
                                   primary: Colors.white,
                                 ),
                                 child: Text(
-                                  _keyGame.currentState != null
-                                  && _keyGame.currentState.isPlaying
+                                  Provider.of<Data>(context).isPlaying
                                   ? 'End' : 'Start',
                                   style: TextStyle(
                                     fontSize: 15, 

@@ -18,7 +18,7 @@ class Block {
 
   Block(this.orientations, Color color, this.orientationIndex) {
     x = 3;
-    y = -width -1;
+    y = -height;
     this.color = color;
   }
 
@@ -31,7 +31,7 @@ class Block {
   }
 
   get color {
-    return orientations[0][0];
+    return orientations[0][0].color;
   }
 
   get subBlocks {
@@ -40,16 +40,16 @@ class Block {
 
   get width {
     int maxX = 0;
-    subBlocks.forEach((subBlocks){
-      if (subBlocks.x > maxX) maxX = subBlocks.x;
+    subBlocks.forEach((subBlock){
+      if (subBlock.x > maxX) maxX = subBlock.x;
     });
     return maxX +1;
   }
 
   get height {
     int maxY = 0;
-    subBlocks.forEach((subBlocks){
-      if (subBlocks.x > maxY) maxY = subBlocks.y;
+    subBlocks.forEach((subBlock){
+      if (subBlock.y > maxY) maxY = subBlock.y;
     });
     return maxY +1;
   }
@@ -68,14 +68,11 @@ class Block {
       case BlockMovement.RIGHT:
         x += 1;
         break;
-      case BlockMovement.UP:
-        y -= 1;
-        break;
       case BlockMovement.ROTATE_CLOCKWISE:
         orientationIndex =  ++orientationIndex % 4;
         break;
       case BlockMovement.ROTATE_COUNTER_CLOCKWISE:
-        orientationIndex = (orientationIndex +3) % 4;
+        orientationIndex = (orientationIndex + 3) % 4;
         break;
     }
   }
@@ -110,10 +107,10 @@ class LBlock extends Block {
 
 class OBlock extends Block {
   OBlock(int orientationIndex) : super ([
-    [SubBlock(0, 0), SubBlock(0, 1), SubBlock(0, 2), SubBlock(1, 2)],
-    [SubBlock(0, 0), SubBlock(1, 0), SubBlock(2, 0), SubBlock(0, 1)],
-    [SubBlock(0, 0), SubBlock(1, 0), SubBlock(1, 1), SubBlock(1, 2)],
-    [SubBlock(2, 0), SubBlock(0, 1), SubBlock(1, 1), SubBlock(2, 1)],
+    [SubBlock(0, 0), SubBlock(1, 0), SubBlock(0, 1), SubBlock(1, 1)],
+    [SubBlock(0, 0), SubBlock(1, 0), SubBlock(0, 1), SubBlock(1, 1)],
+    [SubBlock(0, 0), SubBlock(1, 0), SubBlock(0, 1), SubBlock(1, 1)],
+    [SubBlock(0, 0), SubBlock(1, 0), SubBlock(0, 1), SubBlock(1, 1)],
   ], Colors.blue[300], orientationIndex);
 }
 
@@ -141,5 +138,5 @@ class ZBlock extends Block {
     [SubBlock(1, 0), SubBlock(0, 1), SubBlock(1, 1), SubBlock(0, 2)],
     [SubBlock(0, 0), SubBlock(1, 0), SubBlock(1, 1), SubBlock(2, 1)],
     [SubBlock(1, 0), SubBlock(0, 1), SubBlock(1, 1), SubBlock(0, 2)],
-  ], Colors.cyan[300], orientationIndex);
+  ], Colors.green, orientationIndex);
 }

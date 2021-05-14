@@ -1,7 +1,8 @@
 import 'package:zquiz/widgets/tetris/tetris.dart';
 import 'package:flutter/material.dart';
 import 'package:zquiz/widgets/text_utils.dart';
-
+import 'package:provider/provider.dart';
+import '../../main.dart';
 
 
 class NextBlock extends StatefulWidget {
@@ -32,6 +33,9 @@ class _NextBlockState extends State<NextBlock> {
             aspectRatio: 1,
             child:Container(
               color: Colors.indigo[100],
+              child: Center(
+                child: Provider.of<Data>(context).getNextBlock(),
+              ),
             ),
             ),
         ],

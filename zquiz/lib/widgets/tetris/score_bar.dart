@@ -1,7 +1,8 @@
 import 'package:zquiz/widgets/tetris/tetris.dart';
 import 'package:flutter/material.dart';
 import 'package:zquiz/widgets/text_utils.dart';
-
+import 'package:provider/provider.dart';
+import '../../main.dart';
 
 class ScoreBar extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _ScoreBarState extends State<ScoreBar> {
         children: [
           Padding(
             padding: EdgeInsets.all(10.0),
-            child: Text('Score : 0',
+            child: Text('Score : ${Provider.of<Data>(context).score}',
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.bold,
